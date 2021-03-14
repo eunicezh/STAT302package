@@ -1,0 +1,14 @@
+Package: STAT302package
+Title: Package Building Demonstration
+Version: 0.1.0
+Authors@R: 
+    person(given = "Eunice",
+           family = "Zhang",
+           role = c("aut", "cre"),
+           email = "zhangm27@uw.edu")
+Description: This package demonstrates package building.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
