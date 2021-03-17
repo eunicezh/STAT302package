@@ -8,6 +8,7 @@ Authors@R:
            email = "zhangm27@uw.edu")
 Description: This package demonstrates package building.
 License: GPL (>= 3)
+Imports: tibble
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
