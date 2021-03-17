@@ -20,3 +20,4 @@ test_that("inappropriate or missing inputs throws error", {
   expect_error(my_lm("a string", mtcars))
   expect_error(my_lm(test_regression))
 })
+
