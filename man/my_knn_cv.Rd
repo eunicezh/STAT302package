@@ -23,7 +23,8 @@ This function predict output class \code{species} using covariates
 \code{bill_length_mm}, \code{bill_depth_mm}, \code{flipper_length_mm}, and \code{body_mass_g}.
 }
 \examples{
-my_knn_cv(5, penguins[,3:6],penguins[[1]], 1)
+train <- na.omit(my_penguins)
+my_knn_cv(5, train[,3:6],train[[1]], 1)
 
 }
 \keyword{\code{prediction}}
