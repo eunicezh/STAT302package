@@ -9,10 +9,10 @@ The goal of STAT302package is to ...
 
 ## Installation
 
-You can install the released version of STAT302package from [CRAN](https://CRAN.R-project.org) with:
+You can install the package from the following line:
 
 ``` r
-install.packages("STAT302package")
+devtools::install_github("bryandmartin/Demo", build_vignette = TRUE, build_opts = c())
 ```
 
 ## Example
