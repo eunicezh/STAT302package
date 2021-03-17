@@ -12,7 +12,7 @@ The goal of STAT302package is to ...
 You can install the package from the following line:
 
 ``` r
-devtools::install_github("bryandmartin/Demo", build_vignette = TRUE, build_opts = c())
+devtools::install_github("eunicezh/STAT302package", build_vignette = TRUE, build_opts = c())
 ```
 
 ## Example
