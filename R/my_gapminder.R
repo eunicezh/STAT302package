@@ -5,7 +5,8 @@
 #' This data and documentation come from the \code{gapminder} package,
 #' available as \code{\link[gapminder]{gapminder}}.
 #'
-#' @format The main data frame \code{gapminder} has 1704 rows and 6 variables: #' \describe{
+#' @format The main data frame \code{gapminder} has 1704 rows and 6 variables:
+#' \describe{
 #'   \item{country}{factor with 142 levels}
 #'   \item{continent}{factor with 5 levels}
 #'   \item{year}{ranges from 1952 to 2007 in increments of 5 years}
@@ -14,10 +15,13 @@
 #' \item{gdpPercap}{GDP per capita (US$, inflation-adjusted)}
 #' }
 #'
-#' The supplemental data frame \code{\link[gapminder]{gapminder_unfiltered}} was not #' filtered on \code{year} or for complete data and has 3313 rows.
+#' The supplemental data frame \code{\link[gapminder]{gapminder_unfiltered}} was
+#' not filtered on \code{year} or for complete data and has 3313 rows.
 #'
-#' #' @source \url{http://www.gapminder.org/data/}
-#' @seealso \code{\link[gapminder]{country_colors}} for a nice color scheme for the c #' @importFrom tibble tibble
+#' @source \url{http://www.gapminder.org/data/}
+#' @seealso \code{\link[gapminder]{country_colors}} for a nice color scheme for
+#' the c
+#' @importFrom tibble tibble
 #' @examples
 #' str(gapminder)
 #' head(gapminder)
@@ -36,8 +40,9 @@
 #' gapminder %>%
 #'   group_by(continent) %>%
 #'   summarize(n_obs = n(), n_countries = n_distinct(country))
-#'   #'
-#' # by continent, which country experienced the sharpest 5-year drop in #' # life expectancy and what was the drop?
+#'
+#' # by continent, which country experienced the sharpest 5-year drop in
+#' # life expectancy and what was the drop?
 #' gapminder %>%
 #'   group_by(continent, country) %>%
 #'   select(country, year, continent, lifeExp) %>%
