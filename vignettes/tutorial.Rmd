@@ -15,8 +15,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+## T-test
 ```{r setup}
 library(STAT302package)
+library(tidyverse)
 # extract the data
 demonstration_data <- my_gapminder$lifeExp
 
@@ -35,5 +37,46 @@ result_less$p_val
 result_greater <- my_t.test(demonstration_data, "greater", 60)
 result_greater$p_val
 ```
-Interpretation: In the majority of analyses, an alpha of 0.05 is used as the cutoff for significance. If the p-value is less than 0.05, we reject the null hypothesis that there’s no difference between the means and conclude that a significant difference does exist.
+Interpretation: In the majority of analyses, an alpha of 0.05 is used as the cutoff for significance. If the p-value is less than 0.05, we reject the null hypothesis that there’s no difference between the means and conclude that a significant difference does exist. xxxx
+
+## linear Regression
+```{r}
+# create the formula used for my_lm
+demo_regression <- lm(formula = demonstration_data ~ my_gapminder$gdpPercap + my_gapminder$continent, data = my_gapminder)
+demo_regression
+
+# demonstrate the linear regression
+output_regression <- my_lm(demo_regression, data = my_gapminder)
+output_regression
+```
+Interpretation: gdpPercap coefficient.
+
+Write the hypothesis test associated with the gdpPercap coefficient.
+```{r}
+# extract the estimates for gdpPercap
+est_gdp <- output_regression[2,4]
+est_gdp
+```
+Interpretation: Carefully interpret the results the gdpPercap hypothesis test using a p-value cut-off of α=0.05.
+
+Plot the Actual vs Fitted
+```{r}
+# calculate y-hat
+beta <- as.matrix(output_regression[,1])
+alpha <- model.matrix(demonstration_data ~ my_gapminder$gdpPercap + my_gapminder$continent, data = my_gapminder)
+y_hat <- alpha %*% beta
+
+# plot the graph
+continent <- my_gapminder$continent
+my_df <- data.frame(actual = my_gapminder$lifeExp, fitted = y_hat) 
+ggplot(my_df, aes(x = fitted, y = actual, color = continent)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
+  theme_bw(base_size = 15) +
+  labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+Interpretation: Interpret the Actual vs. Fitted plot and make a statement on what it tells you about model fit.
+
+
 
