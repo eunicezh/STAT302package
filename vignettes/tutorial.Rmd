@@ -118,12 +118,14 @@ y_hat <- alpha %*% beta
 # plot the graph
 continent <- my_gapminder$continent
 my_df <- data.frame(actual = my_gapminder$lifeExp, fitted = y_hat) 
-ggplot(my_df, aes(x = fitted, y = actual, color = continent)) +
+actual_fitted <- ggplot(my_df, aes(x = fitted, y = actual, color = continent)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
   theme_bw(base_size = 15) +
   labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
   theme(plot.title = element_text(hjust = 0.5))
+
+actual_fitted 
 ```
 
 
@@ -205,12 +207,12 @@ rownames(MSE_10) <- seq(1,30)
 folds <- rep(c(2, 5, 10), each = 30) %>% as.factor()
 all_k <- rbind(MSE_2, MSE_5, MSE_10)
 df <- data.frame(all_k, folds)
-ggplot(data = df,aes(x = unlist(folds),y = unlist(all_k),group = unlist(folds),fill = folds)) +
+boxplot_cv <- ggplot(data = df,aes(x = unlist(folds),y = unlist(all_k),group = unlist(folds),fill = folds)) +
   geom_boxplot() +
   theme_bw() +
   labs(x = "Folds", y = "MSE", title = "CV estimated MSE with k=2,5,10")
   theme(plot.title = element_text(hjust = 0.5))
-
+boxplot_cv 
 ```
 
 ```{r}
