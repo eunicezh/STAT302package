@@ -9,15 +9,14 @@
 #'
 #' @examples
 #' my_rf_cv(5)
-#' my_rf_cv(1)
 #'
 #' @export
 my_rf_cv <- function(k) {
   # remove the missing values from penguins data
-  penguins <- na.omit(penguins)
+  my_penguins <- na.omit(my_penguins)
   # randomly assign observations to the training data and test data
-  folds <- sample(rep(1:k, length = nrow(penguins)))
-  data <- data.frame("x" = penguins, "y" = penguins[[6]], "split" = folds)
+  folds <- sample(rep(1:k, length = nrow(my_penguins)))
+  data <- data.frame("x" = my_penguins, "y" = my_penguins[[6]], "split" = folds)
   # make an empty list that stores the MSE rate for each fold
   MSE_list <- rep(NA, k)
   # split training data and test data based on i

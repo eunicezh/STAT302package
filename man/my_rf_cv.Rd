@@ -17,7 +17,6 @@ This function predict predict the body mass based on characteristics of penguins
 }
 \examples{
 my_rf_cv(5)
-my_rf_cv(1)
 
 }
 \keyword{\code{prediction}}
