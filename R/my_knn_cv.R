@@ -23,7 +23,6 @@ my_knn_cv <- function(k_cv, train, cl, k_nn) {
   # make an empty list that stores the misclassfication error for each fold
   error_list = rep(NA, k_cv)
   # split training data and test data based on i
-  if (require("dplyr","class")) {
     for (i in 1:k_cv) {
       data_train <- data %>% filter(split != i)
       data_test <- data %>% filter(split == i)
@@ -37,6 +36,5 @@ my_knn_cv <- function(k_cv, train, cl, k_nn) {
     # predict the class by using the full data
     class <- knn(train, train, as.factor(data$y), k=k_nn)
     return(list("class"= class,"cv_err" = cv_err))
-  }
 }
 
