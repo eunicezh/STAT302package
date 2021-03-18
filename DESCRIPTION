@@ -8,6 +8,7 @@ Authors@R:
            email = "zhangm27@uw.edu")
 Description: This package demonstrates package building.
 License: GPL (>= 3)
+<<<<<<< HEAD
 Imports: 
     tibble,
     dplyr,
@@ -15,6 +16,9 @@ Imports:
     class,
     randomForest,
     magrittr
+=======
+Imports: tibble,dplyr,tidyr,class,randomForest,magrittr
+>>>>>>> 9bd44633a4b19898a4bfa124c1e5d39b9d2e7d29
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
