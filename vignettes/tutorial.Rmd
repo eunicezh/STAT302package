@@ -15,6 +15,31 @@ knitr::opts_chunk$set(
 )
 ```
 
+Our package,"STAT302package," includes four functions. The first function is called `my_t.test()`, which performs a sample t-test in R for a two-sided t-test, and one-sided t-test.It can compare the means of one sample to some hypothesized value. `my_t.test` takes four parameters, and return a `list` of four elements, which uses the `lifeExp` data from the object `my_gapminder`, which was exported from the `gapminder` package. The second function is call `my_lm()`, which fits a linear model in R. It also uses the `lifeExp` as the response variable and `gdpPercap` and `continent` as the explanatory variables. This function takes two parameters, and return a `table` with rows for each coefficient (including the `(Intercept)`) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(>|t|)`. The third function is `my_knn_cv` using the package `palmerpenguins`, which predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g` from `my_penguins`. It outputs a vector of the predicted class $\hat{Y}_{i}$ for all observations and a numeric with the cross-validation misclassification error. The fourth function is `my_rf_cv`. This function predicts `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm` which are also from the package `palmerpenguins`. It takes one parameter which is `k`,and defines a variable `fold` within the `penguins` data. The vignette demonstrates example usage of all main functions. Please file an issue if you have a request for a tutorial that is not currently included and feel free to reach out to us: ziyil4@uw.edu, zhangm27@uw.edu.You can see the vignette by using the following code:
+
+
+```{r, eval=FALSE}
+# To download the STAT302package, use the code below. 
+
+install.packages("STAT302package")
+library(STAT302package)
+
+# Alternatively, you can install the development version directly from GitHub.
+
+#devtools::install_github("bryandmartin/corncob")
+#library(STAT302package)
+
+# In the vignette, we demonstrates the usage of the four functions of this package and explains how to use this package. 
+
+# Use this to view the vignette in the corncob HTML help
+#help(package = "STAT302package", help_type = "html")
+
+# Use this to view the vignette as an isolated HTML file
+#utils::browseVignettes(package = "STAT302package")
+
+```
+
+
 ## T-test
 ```{r setup}
 library(STAT302package)

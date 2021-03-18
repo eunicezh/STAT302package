@@ -7,6 +7,12 @@
 #'
 #' @return Numeric indicating temperature \code{temp_F} converted to Celsius.
 #'
+#' @import dplyr
+#' @import tidyr
+#' @import class
+#' @importFrom randomForest randomForest
+#' @import tibble
+#'
 #' @examples
 #' f_to_c(32)
 #' f_to_c(212)
