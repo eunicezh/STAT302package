@@ -1,7 +1,7 @@
 ---
 title: "Project 3: STAT302package Tutorial"
 output: rmarkdown::html_vignette
-author: Eunice Zhang
+author: Eunice Zhang Ziyi Li
 vignette: >
   %\VignetteIndexEntry{STAT302package Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,37 +15,58 @@ knitr::opts_chunk$set(
 )
 ```
 
-Our package,"STAT302package," includes four functions. The first function is called `my_t.test()`, which performs a sample t-test in R for a two-sided t-test, and one-sided t-test.It can compare the means of one sample to some hypothesized value. `my_t.test` takes four parameters, and return a `list` of four elements, which uses the `lifeExp` data from the object `my_gapminder`, which was exported from the `gapminder` package. The second function is call `my_lm()`, which fits a linear model in R. It also uses the `lifeExp` as the response variable and `gdpPercap` and `continent` as the explanatory variables. This function takes two parameters, and return a `table` with rows for each coefficient (including the `(Intercept)`) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(>|t|)`. The third function is `my_knn_cv` using the package `palmerpenguins`, which predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g` from `my_penguins`. It outputs a vector of the predicted class $\hat{Y}_{i}$ for all observations and a numeric with the cross-validation misclassification error. The fourth function is `my_rf_cv`. This function predicts `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm` which are also from the package `palmerpenguins`. It takes one parameter which is `k`,and defines a variable `fold` within the `penguins` data. The vignette demonstrates example usage of all main functions. Please file an issue if you have a request for a tutorial that is not currently included and feel free to reach out to us: ziyil4@uw.edu, zhangm27@uw.edu.You can see the vignette by using the following code:
-
-```{r, eval=FALSE}
-# To download the STAT302package, use the code below. 
-
-install.packages("STAT302package")
-library(STAT302package)
-
-# Alternatively, you can install the development version directly from GitHub.
-
-#devtools::install_github("bryandmartin/corncob")
-#library(STAT302package)
-
-# In the vignette, we demonstrates the usage of the four functions of this package and explains how to use this package. 
-
-# Use this to view the vignette in the corncob HTML help
-#help(package = "STAT302package", help_type = "html")
-
-# Use this to view the vignette as an isolated HTML file
-#utils::browseVignettes(package = "STAT302package")
-
-```
-
-
-## T-test
 ```{r setup}
 library(STAT302package)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(randomForest)
+```
+
+### Introduction 
+
+Our package,"STAT302package" utilizes Hypothesis Testing and Statistical Prediction Algorithms (K-nearest neighbor and Random Forest) to produce inference and prediction. It includes four functions. The first function is called `my_t.test()`, which performs a sample t-test,including one and two sided tests in R. The result of `my_t.test` return a `list` of four elements: t-stat, degree of freedom, test method and p value. The second function is called `my_lm()`, which fits a linear model in R and returns a `table` with rows for each coefficient (including the `(Intercept)`) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(>|t|)`. The third function `my_knn_cv` and fourth function `my_rf_cv` utilize the data `penguins` from the package `palmerpenguins` to predict the species and body mass of penguins separately based on cross-validation algorithm and random forest.The documentation of each function can be accessed through ?function_name().
+
+To download the STAT302package, use the code below. 
+```{r, eval=FALSE}
+library(STAT302package)
+# install.packages("STAT302package")
+```
+
+Alternatively, you can install the development version directly from GitHub. Before you install from Github, make sure you have the `devtools` package. 
+```{r,eval=FALSE}
+library(STAT302package)
+# install.packages("devtools")
+# devtools::install_github("eunicezh/corncob")
+
+```
+
+Use this to view the vignette
+```{R}
+# Use this to view the vignette in the corncob HTML help
+#help(package = "STAT302package", help_type = "html")
+ 
+# Use this to view the vignette as an isolated HTML file
+#utils::browseVignettes(package = "STAT302package")
+
+```
+
+The vignette demonstrates example usage of all main functions. Please file an issue if you have a request for a tutorial that is not currently included and feel free to reach out to us: ziyil4@uw.edu, zhangm27@uw.edu.
+
+
+### T-test
+
+Interpretation: 
+
+In the majority of analyses, an alpha of 0.05 is used as the cutoff for significance. When p value is less than 0.05, we reject the null hypothesis that there’s no significant difference between the means and conclude that a significant difference does exist. In the following table, we have done 3 hypothesis tests for the mean of dependent variable - life expectancy.
+
+For the first t-test, we observe P = 0.09322877, so we do not have sufficient evidence to reject the null hypothesis and conclude that the true mean life expectancy is not equal to 60.
+
+For the second t-test, we observe P = 0.04661438, so we can reject the null hypothesis and conclude that there’s no difference between the means and a significant difference does exist. the true mean life expectancy is greater than 60.
+
+For the third t-test, we observe P = 0.9533856,so we do not have sufficient evidence to reject the null hypothesis. Therefore, we cannot conclude that the true mean life expectancy is smaller than 60.
+
+```{r}
 # extract the data
 demonstration_data <- my_gapminder$lifeExp
 
@@ -54,39 +75,58 @@ alpha = 0.05
 
 # Demonstrate a test of the hypothesis (Two-Sided)
 result_ts <- my_t.test(demonstration_data, "two.sides", 60)
-result_ts$p_val 
 
 # Demonstrate a test of the hypothesis (less)
 result_less <- my_t.test(demonstration_data, "less", 60)
-result_less$p_val
 
 # Demonstrate a test of the hypothesis (greater)
 result_greater <- my_t.test(demonstration_data, "greater", 60)
-result_greater$p_val
-```
-Interpretation: In the majority of analyses, an alpha of 0.05 is used as the cutoff for significance. If the p-value is less than 0.05, we reject the null hypothesis that there’s no difference between the means and conclude that a significant difference does exist. xxxx
 
-## linear Regression
+test_result <- data.frame("two sides" = result_ts$p_val, "less" = result_less$p_val, "greater" = result_greater$p_val, "alpha" = alpha )
+rownames(test_result) <- "p value"
+test_result 
+```
+
+
+### linear Regression
+
+In this section, we use the linear regression to fit our model as following:
+
 ```{r}
 # create the formula used for my_lm
 demo_regression <- lm(formula = demonstration_data ~ my_gapminder$gdpPercap + my_gapminder$continent, data = my_gapminder)
 demo_regression
+```
 
+The coefficient of gdpPercap is 4.452704e-04, which means that for every one unit of increase in GDP per capita, there will be 4.452704e-04 increase in life expectancy, which doesn't show a significant impact on the life expectancy. 
+
+
+```{r}
 # demonstrate the linear regression
 output_regression <- my_lm(demo_regression, data = my_gapminder)
 output_regression
 ```
-Interpretation: gdpPercap coefficient.
 
-Write the hypothesis test associated with the gdpPercap coefficient.
+In the next step, we make a two sided hypothesis test testing whether this value is significantly significant. 
+
+\begin{align}
+H_0: p& = 4.452704e-04
+H_a: p& \neq 4.452704e-04
+\end{align}
+
+According to our result, p-value is 8.552893e-73, which is significantly smaller than 0.05. Therefore, we have enough evidence to reject that the null hypothesis that the mean of gdpPerCap is 4.452704e-04.
+
 ```{r}
 # extract the estimates for gdpPercap
 est_gdp <- output_regression[2,4]
-est_gdp
-```
-Interpretation: Carefully interpret the results the gdpPercap hypothesis test using a p-value cut-off of α=0.05.
 
-Plot the Actual vs Fitted
+test_result2 <- data.frame("two sides" = est_gdp, "alpha" = alpha )
+rownames(test_result2) <- "p value"
+test_result2
+```
+
+In the following plot, we plot the actual values vs fitted value of Life expectancy. The X-axis represents the fitted, and the Y axis represents the actual value. According to the plot, we could see that not all points for each continent fits the linear line closely, meaning that our model might has a low R-squared value. Also, there are some outliers. 
+
 ```{r}
 # calculate y-hat
 beta <- as.matrix(output_regression[,1])
@@ -103,10 +143,20 @@ ggplot(my_df, aes(x = fitted, y = actual, color = continent)) +
   labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
-Interpretation: Interpret the Actual vs. Fitted plot and make a statement on what it tells you about model fit.
 
 
-## knn cv
+### k-Nearest Neighbors Cross-Validation
+
+In this section, we utilize the penguins data from the package `palmerpenguins` to predict the species of penguins and compute the corresponding CV and traing error associated with different value of K-nearest neighbor.
+
+Based on the table  we could see a clear pattern that CV error and Training Error increases as K increases, but the scale of training error is much smaller than the CV error. 
+
+The smaller the error is, the more precised our prediction will be, Therefore, we would choose 1 k-nearest neighbor as our model since it has the smallest error for both CV and Training error.
+
+However, in practice we would choose different number for our K nearest neighbor, since there is a bias-variance tradeoff. The smaller the bias is, the larger the variance will be. We train our model to be more specific to our data, so the bias would decrease but it will cause our model to be overfit. Therefore, we might choose K=5 in practice. 
+
+Cross-Validation is a re-sampling process that splits our data into N folds. number of Training data would be N-1, and the remaining data would be the test data. Then, test data and training data would be switched until all folds have been test data. This process utilize the limited data more efficiently since each data could be considered as training and test data. Also, this could help us better estimate the performance of our data. 
+
 ```{r}
 # compute the cv and train error
 set.seed(121)
@@ -126,7 +176,14 @@ err_table <- data.frame("CV Error" = cv_result_list, "Training Error" = train_re
 rownames(err_table) <- c(1:10)
 err_table
 ```
-### my_rf_cv
+
+
+### Random Forest Cross-Validation
+
+In this section, we will use random forest to test our penguins data. We run the 30 simulations of the CV estimated MSE when K folds = 2, 5, and 10. Then, we make a boxplot of these 30 simulations and compute the mean and standard deviation of these values.
+
+In the boxplot and table, we could see the standard deviation for k=2 is the largest and mean is smallest when k=10, which corresponds to the bias-variance tradeoff we mentioned in the last section. Since we train our model to be more specific to our data, so the bias would decrease but it will cause our model to be overfit. 
+
 ```{r}
 # compute CV estimated MSE when k = 2
 MSE_2 <- data.frame()
@@ -136,7 +193,7 @@ for(i in 1:30) {
 }
 colnames(MSE_2) <- c("MSE")
 rownames(MSE_2) <- seq(1,30)
-MSE_2
+
 
 #Calculate CV estimated MSE when k = 5
 MSE_5 <- data.frame()
@@ -146,7 +203,7 @@ for(i in 1:30) {
 }
 colnames(MSE_5) <- c("MSE")
 rownames(MSE_5) <- seq(1,30)
-MSE_5
+
 
 #Calculate CV estimated MSE when k = 10
 MSE_10 <- data.frame()
@@ -156,7 +213,7 @@ for(i in 1:30) {
 }
 colnames(MSE_10) <- c("MSE")
 rownames(MSE_10) <- seq(1,30)
-MSE_10
+
 
 
 ```
@@ -173,6 +230,7 @@ ggplot(data = df,aes(x = unlist(folds),y = unlist(all_k),group = unlist(folds),f
   theme(plot.title = element_text(hjust = 0.5))
 
 ```
+
 ```{r}
 # calculate the average of CV estimates 
 avg2 <- mean(as.numeric(MSE_2[,1]))
