@@ -7,3 +7,4 @@ test_that("my_rf_cv returns a numeric Estimate", {
 test_that("inappropriate input throw error", {
   expect_error(my_rf_cv("a string"))
 })
+

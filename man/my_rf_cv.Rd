@@ -10,7 +10,8 @@ my_rf_cv(k)
 \item{k}{Number of folds.}
 }
 \value{
-a numeric with the cross-validation error
+Predict body_mass_g using covariates bill_length_mm, bill_depth_mm,
+and flipper_length_mm
 }
 \description{
 This function predict predict the body mass based on characteristics of penguins
