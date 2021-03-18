@@ -45,6 +45,7 @@ library(STAT302package)
 library(STAT302package)
 library(dplyr)
 library(tidyr)
+library(ggplot2)
 # extract the data
 demonstration_data <- my_gapminder$lifeExp
 
