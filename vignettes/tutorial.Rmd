@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 
 Our package,"STAT302package," includes four functions. The first function is called `my_t.test()`, which performs a sample t-test in R for a two-sided t-test, and one-sided t-test.It can compare the means of one sample to some hypothesized value. `my_t.test` takes four parameters, and return a `list` of four elements, which uses the `lifeExp` data from the object `my_gapminder`, which was exported from the `gapminder` package. The second function is call `my_lm()`, which fits a linear model in R. It also uses the `lifeExp` as the response variable and `gdpPercap` and `continent` as the explanatory variables. This function takes two parameters, and return a `table` with rows for each coefficient (including the `(Intercept)`) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(>|t|)`. The third function is `my_knn_cv` using the package `palmerpenguins`, which predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g` from `my_penguins`. It outputs a vector of the predicted class $\hat{Y}_{i}$ for all observations and a numeric with the cross-validation misclassification error. The fourth function is `my_rf_cv`. This function predicts `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm` which are also from the package `palmerpenguins`. It takes one parameter which is `k`,and defines a variable `fold` within the `penguins` data. The vignette demonstrates example usage of all main functions. Please file an issue if you have a request for a tutorial that is not currently included and feel free to reach out to us: ziyil4@uw.edu, zhangm27@uw.edu.You can see the vignette by using the following code:
 
-
 ```{r, eval=FALSE}
 # To download the STAT302package, use the code below. 
 
@@ -137,6 +136,7 @@ for(i in 1:30) {
 }
 colnames(MSE_2) <- c("MSE")
 rownames(MSE_2) <- seq(1,30)
+MSE_2
 
 #Calculate CV estimated MSE when k = 5
 MSE_5 <- data.frame()
@@ -146,6 +146,7 @@ for(i in 1:30) {
 }
 colnames(MSE_5) <- c("MSE")
 rownames(MSE_5) <- seq(1,30)
+MSE_5
 
 #Calculate CV estimated MSE when k = 10
 MSE_10 <- data.frame()
@@ -155,9 +156,35 @@ for(i in 1:30) {
 }
 colnames(MSE_10) <- c("MSE")
 rownames(MSE_10) <- seq(1,30)
+MSE_10
+
 
 ```
 
+```{r}
+# plot the boxplot when k= 2, 5, and 10
+folds <- rep(c(2, 5, 10), each = 30) %>% as.factor()
+all_k <- rbind(MSE_2, MSE_5, MSE_10)
+df <- data.frame(all_k, folds)
+ggplot(data = df,aes(x = unlist(folds),y = unlist(all_k),group = unlist(folds),fill = folds)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = "Folds", y = "MSE", title = "CV estimated MSE with k=2,5,10")
+  theme(plot.title = element_text(hjust = 0.5))
 
+```
+```{r}
+# calculate the average of CV estimates 
+avg2 <- mean(as.numeric(MSE_2[,1]))
+avg5 <- mean(as.numeric(MSE_5[,1]))
+avg10 <- mean(as.numeric(MSE_10[,1]))
+
+# calculate the sd of CV estimates
+sd2 <- sd(as.numeric(MSE_2[,1]))
+sd5 <- sd(as.numeric(MSE_5[,1]))
+sd10 <- sd(as.numeric(MSE_10[,1]))
+
+cv_table <- data.frame("k value" = c(2, 5, 10), "Average" = c(avg2,avg5,avg10), "Standard Deviation" = c(sd2,sd5,sd10))
+cv_table
 ```
 
