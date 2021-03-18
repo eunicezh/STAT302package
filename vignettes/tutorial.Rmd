@@ -43,7 +43,8 @@ library(STAT302package)
 ## T-test
 ```{r setup}
 library(STAT302package)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 # extract the data
 demonstration_data <- my_gapminder$lifeExp
 
