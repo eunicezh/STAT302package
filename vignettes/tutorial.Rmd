@@ -106,4 +106,29 @@ ggplot(my_df, aes(x = fitted, y = actual, color = continent)) +
 Interpretation: Interpret the Actual vs. Fitted plot and make a statement on what it tells you about model fit.
 
 
+## knn cv
+```{r}
+# compute the cv and train error
+set.seed(121)
+my_penguins <- na.omit(my_penguins)
+
+cv_result_list <- rep(NA,10)
+train_result_list <- rep(NA,10)
+for (i in 1:10) {
+  cv_result <- my_knn_cv(5, my_penguins[,3:6],my_penguins[[1]], i)
+  cv_result_list[i] <- cv_result[[2]]
+  train_result <-sum(as.numeric(my_penguins$species != cv_result[[1]])) / nrow(my_penguins)
+  train_result_list[i] <- train_result
+}
+
+# Make a table composed of CV error and Training Error
+err_table <- data.frame("CV Error" = cv_result_list, "Training Error" = train_result_list)
+rownames(err_table) <- c(1:10)
+err_table
+```
+
+
+```{r}
+
+```
 
