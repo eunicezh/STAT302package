@@ -27,32 +27,14 @@ library(randomForest)
 
 Our package,"STAT302package" utilizes Hypothesis Testing and Statistical Prediction Algorithms (K-nearest neighbor and Random Forest) to produce inference and prediction. It includes four functions. The first function is called `my_t.test()`, which performs a sample t-test,including one and two sided tests in R. The result of `my_t.test` return a `list` of four elements: t-stat, degree of freedom, test method and p value. The second function is called `my_lm()`, which fits a linear model in R and returns a `table` with rows for each coefficient (including the `(Intercept)`) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(>|t|)`. The third function `my_knn_cv` and fourth function `my_rf_cv` utilize the data `penguins` from the package `palmerpenguins` to predict the species and body mass of penguins separately based on cross-validation algorithm and random forest.The documentation of each function can be accessed through ?function_name().
 
-To download the STAT302package, use the code below. 
-```{r, eval=FALSE}
-library(STAT302package)
-# install.packages("STAT302package")
-```
 
-Alternatively, you can install the development version directly from GitHub. Before you install from Github, make sure you have the `devtools` package. 
+install the development version directly from GitHub. Before you install from Github, make sure you have the `devtools` package. 
 ```{r,eval=FALSE}
 library(STAT302package)
 # install.packages("devtools")
 # devtools::install_github("eunicezh/corncob")
 
 ```
-
-Use this to view the vignette
-```{R}
-# Use this to view the vignette in the corncob HTML help
-#help(package = "STAT302package", help_type = "html")
- 
-# Use this to view the vignette as an isolated HTML file
-#utils::browseVignettes(package = "STAT302package")
-
-```
-
-The vignette demonstrates example usage of all main functions. Please file an issue if you have a request for a tutorial that is not currently included and feel free to reach out to us: ziyil4@uw.edu, zhangm27@uw.edu.
-
 
 ### T-test
 
@@ -182,7 +164,7 @@ err_table
 
 In this section, we will use random forest to test our penguins data. We run the 30 simulations of the CV estimated MSE when K folds = 2, 5, and 10. Then, we make a boxplot of these 30 simulations and compute the mean and standard deviation of these values.
 
-In the boxplot and table, we could see the standard deviation for k=2 is the largest and mean is smallest when k=10, which corresponds to the bias-variance tradeoff we mentioned in the last section. Since we train our model to be more specific to our data, so the bias would decrease but it will cause our model to be overfit. 
+In the boxplot and table, we could see the standard deviation for k=2 is the largest and mean is smallest when k=10, which corresponds to the bias-variance tradeoff we mentioned in the last section. Since we train our model to be more specific to our data,  the bias would decrease but it will cause our model to be overfit. 
 
 ```{r}
 # compute CV estimated MSE when k = 2
@@ -246,3 +228,6 @@ cv_table <- data.frame("k value" = c(2, 5, 10), "Average" = c(avg2,avg5,avg10), 
 cv_table
 ```
 
+### conclusion
+
+In this vignette, we demonstrates example usage of all main functions. We use the p_value to test the statistical significance of mean of life expectancy, do the linear regression to find the independent variables for the life expectancy in the first two sections. In the next two sections, we use basic machine learning mechanisms to evaluate our model based on the CV error and Training error. Also, we find the tradeoff between the bias and variance based on our calculation. The larger the bias is, the smaller the variance will be. 
