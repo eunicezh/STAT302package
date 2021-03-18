@@ -107,7 +107,7 @@ rownames(test_result2) <- "p value"
 test_result2
 ```
 
-In the following plot, we plot the actual values vs fitted value of Life expectancy. The X-axis represents the fitted, and the Y axis represents the actual value. According to the plot, we could see that not all points for each continent fits the linear line closely, meaning that our model might has a low R-squared value. Also, there are some outliers. 
+In the following plot, we plot the actual values vs fitted value of Life expectancy. The X-axis represents the fitted, and the Y axis represents the actual value. According to the plot, we could see that not all points for each continent fits the linear line closely. Instead, points from each continent group compose like vertical lines, which means that our model might has a low R-squared value. Also, there are some outliers. 
 
 ```{r}
 # calculate y-hat
