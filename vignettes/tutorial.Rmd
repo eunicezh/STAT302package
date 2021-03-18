@@ -46,6 +46,7 @@ library(STAT302package)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(randomForest)
 # extract the data
 demonstration_data <- my_gapminder$lifeExp
 
@@ -128,6 +129,35 @@ err_table
 ```
 ### my_rf_cv
 ```{r}
+# compute CV estimated MSE when k = 2
+MSE_2 <- data.frame()
+for(i in 1:30) {
+  result_2 <- my_rf_cv(k = 2)
+  MSE_2[i,1] <- unlist(result_2)
+}
+colnames(MSE_2) <- c("MSE")
+rownames(MSE_2) <- seq(1,30)
+
+#Calculate CV estimated MSE when k = 5
+MSE_5 <- data.frame()
+for(i in 1:30) {
+  result_5 <- my_rf_cv(k = 5)
+  MSE_5[i,1] <- unlist(result_5)
+}
+colnames(MSE_5) <- c("MSE")
+rownames(MSE_5) <- seq(1,30)
+
+#Calculate CV estimated MSE when k = 10
+MSE_10 <- data.frame()
+for(i in 1:30) {
+  result_10 <- my_rf_cv(k = 10)
+  MSE_10[i,1] <- unlist(result_10)
+}
+colnames(MSE_10) <- c("MSE")
+rownames(MSE_10) <- seq(1,30)
+
+```
+
 
 ```
 

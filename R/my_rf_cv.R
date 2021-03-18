@@ -4,8 +4,7 @@
 #'
 #' @param k Number of folds.
 #'
-#' @return Predict body_mass_g using covariates bill_length_mm, bill_depth_mm,
-#' and flipper_length_mm
+#' @return a numeric with the cross-validation error
 #' @keywords \code{prediction}
 #'
 #' @examples
