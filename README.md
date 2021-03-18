@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/eunicezh/STAT302package/branch/master/graph/badge.svg?token=MT4R2FZ0KE)](https://codecov.io/gh/eunicezh/STAT302package)
 <!-- badges: end -->
 
-The goal of STAT302package is to ...
+The goal of STAT302package is to use the Hypothesis Testing and Statistical Prediction Algorithms (K-nearest neighbor and Random Forest) to produce inference and prediction.
 
 ## Installation
 
@@ -19,6 +19,7 @@ devtools::install_github("eunicezh/STAT302package", build_vignette = TRUE, build
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
+my
 
 ``` r
 library(STAT302package)
